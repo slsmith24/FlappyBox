@@ -39,11 +39,32 @@ var mainState= {
   
    this.bird.body.gravity.y = 1000;  
 
-
+  var spaceKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+  
+  spaceKey.onDown.add(this.jump, this);
 },
 
  update: function () {
    // This function runs 60 times per second  
+   
+   
+   //Check if the bird is outside of the gamescreen
+   if(this.bird.inWorld == false) {
+     this.restartGame();
+   }
+   
+   
+ },
+ 
+ 
+ jump: function()  {
+   //Let's make our bird jump
+    this.bird.body.velocity.y = -350;
+
+ },
+ 
+ restartGame: function () {
+   game.state.start('main');
  },
  
  };
