@@ -50,16 +50,20 @@ var mainState= {
   this.pipes.createMultiple(20,'pipe');
   
   this.timer = game.time.events.loop(1500, this.addRowOfPipes, this);
+  
+  this.score = 0;
+  this.labelScore = game.add.text(20,20, "0", {font:"30px Arial", fill:"#ffffff"});
 },
 
  update: function () {
    // This function runs 60 times per second  
+   //It contains the games logic and all the time related actions 
    
-   
-   //Check if the bird is outside of the gamescreen
    if(this.bird.inWorld == false) {
      this.restartGame();
    }
+   
+   game.physics.arcade.overlap(this.bird, this.pipes, this.restartGame, null, this);
    
    
  },
@@ -86,6 +90,9 @@ var mainState= {
        this.addOnePipe(400, i*60 + 10);
      
      }
+     
+     this.score += 1; 
+     this.labelScore.text = this.score;
  },
  
  jump: function()  {
